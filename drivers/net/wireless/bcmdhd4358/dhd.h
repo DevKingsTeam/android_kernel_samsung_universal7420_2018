@@ -1468,6 +1468,18 @@ extern void dhdpcie_start_runtimepm(dhd_pub_t *pub);
 extern int dhdpcie_set_suspend_resume(struct pci_dev *dev, bool state);
 #endif /* DHD_USE_IDLECOUNT && BCMPCIE */
 
+#if defined(ANDROID_PLATFORM_VERSION)
+#if (ANDROID_PLATFORM_VERSION < 7)
+#define VENDOR_PATH "/system"
+#elif (ANDROID_PLATFORM_VERSION == 7)
+#define VENDOR_PATH "/system"
+#elif (ANDROID_PLATFORM_VERSION >= 8)
+#define VENDOR_PATH "/vendor"
+#endif /* ANDROID_PLATFORM_VERSION < 7 */
+#else
+#define VENDOR_PATH ""
+#endif /* ANDROID_PLATFORM_VERSION */
+
 #ifdef DHD_LEGACY_FILE_PATH
 #define PLATFORM_PATH   "/data/"
 #elif defined(PLATFORM_SLP)
